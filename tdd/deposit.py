@@ -8,6 +8,9 @@ import json
 import sqlite3
 import requests
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 
 TEST_APP_ID = 'd57f0fccee6548ed8fae64ddf9197ec1' # не для production
 # Используем идентификатор сервиса курса валют из переменной окружения
@@ -21,7 +24,7 @@ class DepositInformer:
     """
     _URL_RATES = 'http://openexchangerates.org/api/latest.json?app_id={}'
 
-    def __init__(self, init_deposit=None, debug=False):
+    def __init__(self, init_deposit=None):
         self.url = self._URL_RATES.format(OPENEXCHANGERATES_APP_ID)
 
         if (init_deposit):
@@ -29,8 +32,6 @@ class DepositInformer:
             self._commit_changes()
         else:
             self._deposit, self.timestamp = self.get_latest_value()
-
-        self.debug = debug
 
 
     @property
@@ -82,8 +83,7 @@ class DepositInformer:
         self.deposit = self.deposit * math.pow(math.exp(1),
                                                rate / 10 * delta / one_year)
 
-        if self.debug:
-            print('Current deposit value: {}'.format(self.deposit))
+        logging.debug('Current deposit value: {}'.format(self.deposit))
 
         return self.deposit
 
@@ -106,5 +106,5 @@ class DepositInformer:
 
 
 if __name__ == '__main__':
-    informer = DepositInformer(debug=True)
+    informer = DepositInformer()
     informer.update()
