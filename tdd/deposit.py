@@ -8,7 +8,9 @@ import sqlite3
 import requests
 
 
-OPENEXCHANGERATES_APP_ID = 'd57f0fccee6548ed8fae64ddf9197ec1'
+TEST_APP_ID = 'd57f0fccee6548ed8fae64ddf9197ec1' # не для production
+# Используем идентификатор сервиса курса валют из переменной окружения
+OPENEXCHANGERATES_APP_ID = os.environ.get('OPENEXCHANGERATES_APP_ID', TEST_APP_ID)
 
 
 class DepositInformer:
