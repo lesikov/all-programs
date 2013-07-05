@@ -44,7 +44,7 @@ class DepositInformer:
         self.timestamp = int(time.time())
 
     def update(self):
-        """Увеливает депозит с учётом процента и применить изменения."""
+        """Увеличивает депозит с учётом процента и применяет изменения."""
         self.grow_deposit()
         self._commit_changes()
 
