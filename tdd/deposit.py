@@ -16,10 +16,10 @@ class DepositInformer:
     Для получения актуального курса валют информатор использует сервис
     https://openexchangerates.org, который предоставляет данные в формате JSON.
     """
-    _URL_OEC = 'http://openexchangerates.org/api/latest.json?app_id={app_id}'
+    _URL_OEC = 'http://openexchangerates.org/api/latest.json?app_id={}'
 
     def __init__(self, init_deposit=None, debug=False):
-        self.url = self._URL_OEC.format(app_id=OPENEXCHANGERATES_APP_ID)
+        self.url = self._URL_OEC.format(OPENEXCHANGERATES_APP_ID)
 
         if (init_deposit):
             self.deposit = init_deposit
