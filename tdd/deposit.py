@@ -49,11 +49,10 @@ class DepositInformer:
 
     def get_latest_value(self):
         """Возвращает последнее добавленное значение депозита."""
-        conn = sqlite3.connect('data/deposit.db')
-        c = conn.cursor()
-        c.execute('SELECT * FROM deposits ORDER BY rowid DESC LIMIT 1')
-        latest = c.fetchone()
-        conn.close()
+        with self._get_db() as conn:
+            c = conn.cursor()
+            c.execute('SELECT * FROM deposits ORDER BY rowid DESC LIMIT 1')
+            latest = c.fetchone()
         return latest
 
     def get_rate(self, currency):
@@ -94,14 +93,16 @@ class DepositInformer:
         return now - self.timestamp
 
 
+    def _get_db(self):
+        return sqlite3.connect('data/deposit.db')
+
     def _commit_changes(self):
         """Сохранение последних изменений."""
-        conn = sqlite3.connect('data/deposit.db')
-        c = conn.cursor()
-        to_commit = (self.deposit, self.timestamp)
-        c.execute('INSERT INTO deposits VALUES {}'.format(to_commit))
-        conn.commit()
-        conn.close()
+        with self._get_db() as conn:
+            c = conn.cursor()
+            to_commit = (self.deposit, self.timestamp)
+            c.execute('INSERT INTO deposits VALUES {}'.format(to_commit))
+            conn.commit()
 
 
 if __name__ == '__main__':
