@@ -21,23 +21,27 @@ class DepositInformerTests(unittest.TestCase):
         self.assertRaises(KeyError, informer.get_rate, 'INV')
 
 
+    @patch.object(DepositInformer, 'get_rate')
     @patch.object(DepositInformer, '_delta_time')
-    def test_grow_deposit_1day(self, delta_mock):
+    def test_grow_deposit_1day(self, rate_mock, delta_mock):
         deposit = 100
         informer = DepositInformer(deposit)
+        rate_mock.return_value = 0.778564
         delta_mock.return_value = datetime.timedelta(days=1).total_seconds()
 
         new_deposit = informer.grow_deposit()
-        self.assertAlmostEqual(new_deposit, 100.021203, places=5)
+        self.assertAlmostEqual(new_deposit, 100.02133279)
 
+    @patch.object(DepositInformer, 'get_rate')
     @patch.object(DepositInformer, '_delta_time')
-    def test_grow_deposit_2days(self, delta_mock):
+    def test_grow_deposit_2days(self, rate_mock, delta_mock):
         deposit = 100
         informer = DepositInformer(deposit)
+        rate_mock.return_value = 0.778564
         delta_mock.return_value = datetime.timedelta(days=2).total_seconds()
 
         new_deposit = informer.grow_deposit()
-        self.assertAlmostEqual(new_deposit, 100.042411, places=5)
+        self.assertAlmostEqual(new_deposit, 100.04267014)
 
 
 if __name__ == '__main__':
