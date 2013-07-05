@@ -49,8 +49,8 @@ class DepositInformer:
 
     def get_latest_value(self):
         """Возвращает последнее добавленное значение депозита."""
-        with self._get_db() as conn:
-            c = conn.cursor()
+        with self._get_db() as db:
+            c = db.cursor()
             c.execute('SELECT * FROM deposits ORDER BY rowid DESC LIMIT 1')
             latest = c.fetchone()
         return latest
@@ -98,11 +98,11 @@ class DepositInformer:
 
     def _commit_changes(self):
         """Сохранение последних изменений."""
-        with self._get_db() as conn:
-            c = conn.cursor()
+        with self._get_db() as db:
+            c = db.cursor()
             to_commit = (self.deposit, self.timestamp)
             c.execute('INSERT INTO deposits VALUES {}'.format(to_commit))
-            conn.commit()
+            db.commit()
 
 
 if __name__ == '__main__':
