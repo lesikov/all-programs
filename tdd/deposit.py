@@ -94,7 +94,7 @@ class DepositInformer:
 
 
     def _get_db(self):
-        return sqlite3.connect('data/deposit.db')
+        return sqlite3.connect('deposit.db')
 
     def _commit_changes(self):
         """Сохранение последних изменений."""
