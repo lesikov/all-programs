@@ -18,12 +18,12 @@ with sqlite3.connect(db_filename) as conn:
 
     print("Inserting data...")
     conn.execute(
-        ("INSERT INTO donation (donate_on, donor_name, donor_gender, blood_type)"
-         "VALUES ('2013-07-01', 'Ivan Ivanov', 'male', 'A+')")
+        ("INSERT INTO donation (donor_name, donor_gender, blood_type)"
+         "VALUES ('Ivan Ivanov', 'male', 'A+')")
     )
     conn.execute(
-        ("INSERT INTO donation (donate_on, donor_name, donor_gender, blood_type)"
-         "VALUES ('2013-06-21', 'Petr Petrov', 'male', 'AB+')")
+        ("INSERT INTO donation (donor_name, donor_gender, blood_type)"
+         "VALUES ('Petr Petrov', 'male', 'AB+')")
     )
 
     conn.commit()
