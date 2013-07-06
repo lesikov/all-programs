@@ -23,7 +23,7 @@ BEFORE CHANGES:
 
 2013-07-06 20:55:32,410 (Writer    ) connecting
 2013-07-06 20:55:32,411 (Writer    ) connected
-2013-07-06 20:55:32,412 (Writer    ) changes made
+2013-07-06 20:55:32,412 (Writer    ) changes made: UPDATE donation SET donate_on=...
 2013-07-06 20:55:32,412 (Writer    ) waiting to synchronize
 2013-07-06 20:55:32,411 (Reader    ) waiting to synchronize
 2013-07-06 20:55:33,412 (MainThread) setting ready
