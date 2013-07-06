@@ -31,7 +31,7 @@ def writer():
 
         # Изменения значения даты на текущую локальную
         c.execute('UPDATE donation SET donate_on=DATETIME("now", "localtime")')
-        logging.debug('changes made')
+        logging.debug('changes made: UPDATE donation SET donate_on=...')
 
         logging.debug('waiting to synchronize')
         ready.wait() # синхронизация
