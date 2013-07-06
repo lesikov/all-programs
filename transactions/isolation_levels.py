@@ -12,13 +12,13 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s (%(threadName)-10s) %(message)s')
 
 def foo():
-    print('foo:before')
+    logging.debug('before')
     ready.wait()
-    print('foo:after')
+    logging.debug('foo:after')
 
 def bar():
-    print('bar:before')
-    print('bar:after')
+    logging.debug('bar:before')
+    logging.debug('bar:after')
 
 if __name__ == '__main__':
     # События - простой объект синхронизации: события представляют
