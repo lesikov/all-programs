@@ -25,3 +25,5 @@ with sqlite3.connect(db_filename) as conn:
         ("INSERT INTO donation (donate_on, donor_name, donor_gender, blood_type)"
          "VALUES ('2013-06-21', 'Petr Petrov', 'male', 'AB+')")
     )
+
+    conn.commit()
