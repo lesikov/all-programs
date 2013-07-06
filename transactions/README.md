@@ -12,6 +12,10 @@
 ## Выполнение программы (вывод):
 
 ```sh
+>>> python fixtures.py
+Creating schema...
+Inserting data...
+
 >>> python writer_reader.py
 
 BEFORE CHANGES:
