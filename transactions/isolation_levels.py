@@ -1,3 +1,4 @@
+# coding: utf-8
 #!/usr/bin/python3
 
 import os
@@ -16,7 +17,7 @@ def writer():
     with sqlite3.connect('bank.db') as conn:
         c = conn.cursor()
         logging.debug('connected')
-        c.execute('UPDATE donation SET blood_type="O+"')
+        c.execute('UPDATE donation SET donate_on=DATETIME("now", "localtime")')
         logging.debug('changes made')
         logging.debug('waiting to synchronize')
         ready.wait() # синхронизация
@@ -46,8 +47,8 @@ if __name__ == '__main__':
     ready = threading.Event()
 
     threads = [
-        threading.Thread(name='Reader', target=reader),
         threading.Thread(name='Writer', target=writer),
+        threading.Thread(name='Reader', target=reader),
     ]
 
     [t.start() for t in threads]
