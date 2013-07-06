@@ -11,14 +11,18 @@ import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s (%(threadName)-10s) %(message)s')
 
-def foo():
-    logging.debug('before')
-    ready.wait()
-    logging.debug('foo:after')
+def reader():
+    with sqlite3.connect('bank.db') as conn:
+        c = conn.cursor()
+        logging.debug('waiting to synchronize')
+        ready.wait() # синхронизация
+        logging.debug('wait over')
+        c.execute('SELECT * from donation')
+        logging.debug('SELECT EXECUTED')
+        results = c.fetchall()
+        logging.debug('results fetched')
+    return
 
-def bar():
-    logging.debug('bar:before')
-    logging.debug('bar:after')
 
 if __name__ == '__main__':
     # События - простой объект синхронизации: события представляют
@@ -26,8 +30,7 @@ if __name__ == '__main__':
     ready = threading.Event()
 
     threads = [
-        threading.Thread(name='Foo', target=foo),
-        threading.Thread(name='Bar', target=bar)
+        threading.Thread(name='Reader', target=reader),
     ]
 
     [t.start() for t in threads]
